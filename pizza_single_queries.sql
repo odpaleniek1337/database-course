@@ -1,3 +1,18 @@
+--1
+SELECT * FROM menu
+ORDER BY pizza asc
+
+--2
+SELECT * FROM menu
+ORDER BY price desc
+
+--3
+SELECT DISTINCT price FROM menu
+
+--4
+SELECT * FROM menu
+WHERE country LIKE 'Italy';
+
 --8
 SELECT * FROM menu
 WHERE pizza LIKE '%ano';

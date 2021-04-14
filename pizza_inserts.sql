@@ -49,5 +49,15 @@ INSERT INTO recipe VALUES
 ('garlic', 'garlic', 25),
 ('garlic', 'spice', 10),
 ('ham', 'ham', 150),
-('ham', 'spice', 5)
+('ham', 'spice', 5),
+('hawaiian', 'ham', 100),
+('hawaiian', 'pineapple', 100),
+('hawaiian', 'spice', 5),
+('margherita', 'cheese', 120),
+('margherita', 'spice', 5),
+('mexicano', 'capsicum', 75),
+('mexicano', 'chilli', 25),
+('mexicano', 'mushroom', 50),
+('mexicano', 'onion', 75),
+('mexicano', 'spice', 20)
 ;
