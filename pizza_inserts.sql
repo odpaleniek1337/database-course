@@ -14,3 +14,17 @@ INSERT INTO menu VALUES
 ('vegetarian', 7.40, null, 'wholemeal'),
 ('viennese', 7.40, 'Italy', 'white flour')
 ;
+
+INSERT INTO recipe VALUES
+('americano', 'pepperoni', 75),
+('americano', 'salami', 120),
+('americano', 'spice', 10),
+('frutti di mare', 'seafood', 200),
+('frutti di mare', 'spice', 5),
+('funghi', 'mushroom', 100),
+('funghi', 'spice', 5),
+('garlic', 'garlic', 25),
+('garlic', 'spice', 10),
+('ham', 'ham', 150),
+('ham', 'spice', 5)
+;
