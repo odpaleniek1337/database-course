@@ -15,6 +15,29 @@ INSERT INTO menu VALUES
 ('viennese', 7.40, 'Italy', 'white flour')
 ;
 
+INSERT INTO items VALUES
+('anchovies', 'fish'),
+('bacon', 'meat'),
+('capsicum', 'veg'),
+('cheese', 'dairy'),
+('chilli', 'spice'),
+('egg', 'dairy'),
+('garlic', 'spice'),
+('German sausage', 'meat'),
+('ham', 'meat'),
+('mushroom', 'veg'),
+('olives', 'veg'),
+('onion', 'veg'),
+('peas', 'veg'),
+('pepperoni', 'meat'),
+('pineapple', 'fruit'),
+('prawn', 'fish'),
+('salami', 'meat'),
+('seafood', 'fish'),
+('spice', 'spice'),
+('tomato', 'veg')
+;
+
 INSERT INTO recipe VALUES
 ('americano', 'pepperoni', 75),
 ('americano', 'salami', 120),

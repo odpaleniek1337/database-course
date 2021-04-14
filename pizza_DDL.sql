@@ -2,7 +2,7 @@ CREATE DATABASE pizza;
 USE pizza;
 
 CREATE TABLE items(
-	ingredient varchar(12) CONSTRAINT items_PK PRIMARY KEY,
+	ingredient varchar(15) CONSTRAINT items_PK PRIMARY KEY,
 	type varchar(8)
 	);
 
@@ -15,6 +15,6 @@ CREATE TABLE menu(
 
 CREATE TABLE recipe(
 	pizza varchar(30) FOREIGN KEY REFERENCES menu(pizza),
-	ingredient varchar(12) FOREIGN KEY REFERENCES items(ingredient),
+	ingredient varchar(15) FOREIGN KEY REFERENCES items(ingredient),
 	amount int
 	);
