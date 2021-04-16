@@ -15,7 +15,7 @@ WHERE  country='Italy' AND price<7.00
 
 --5
 SELECT * FROM menu
-WHERE country IS NOT NULL AND  NOT country='Italy' AND NOT  country='USA'
+WHERE country IS NOT NULL AND  NOT country='Italy' AND NOT  country='U.S'
 
 --6
 SELECT * FROM menu
@@ -34,6 +34,6 @@ SELECT pizza, price, country FROM menu
 WHERE country IS NOT NULL;
 
 --10
-SELECT amount FROM recipe
+SELECT DISTINCT amount FROM recipe
 WHERE ingredient='spice'
 ORDER BY amount DESC;

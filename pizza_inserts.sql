@@ -72,7 +72,7 @@ INSERT INTO recipe VALUES
 ('siciliano', 'capsicum',75),
 ('siciliano', 'olives',50),
 ('siciliano', 'onion',50),
-('siciliano', 'spice', 10),
+('siciliano', 'spice', 15),
 ('special', 'anchovies',25),
 ('special', 'bacon', 25),
 ('special', 'capsicum', 25),
