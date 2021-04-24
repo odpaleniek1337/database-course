@@ -49,11 +49,27 @@ INNER JOIN items ON items.ingredient= recipe.ingredient WHERE recipe.pizza='Marg
 SELECT items.ingredient, recipe.pizza
 from recipe
 INNER JOIN items ON items.ingredient= recipe.ingredient	WHERE items.type='fish'
+
 --3
+SELECT items.ingredient, recipe.pizza
+FROM recipe
+JOIN items ON recipe.ingredient = items.ingredient WHERE items.type='meat';
 
 --4
+DECLARE @c varchar
+SELECT @c = country FROM menu WHERE pizza='siciliano'
+
+SELECT pizza
+FROM menu
+WHERE country=@c;
 
 --5
+DECLARE @p dec(4,2)
+SELECT @p = price FROM menu WHERE pizza='quattro stagioni'
+
+SELECT pizza, price
+FROM menu
+WHERE price > @p;
 
 --6
 SELECT recipe.ingredient, menu.pizza from MENU
