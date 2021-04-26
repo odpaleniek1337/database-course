@@ -30,7 +30,7 @@ FROM menu
 WHERE base='wholemeal'
 
 --7
-SELECT COUNT(1) as 'No. of no country'
+SELECT COUNT(pizza) as 'No. of no country'
 FROM menu
 WHERE country IS NULL
 
@@ -72,11 +72,11 @@ FROM menu
 WHERE price > @p;
 
 --6
-SELECT recipe.ingredient, menu.pizza from MENU
+SELECT items.ingredient, menu.pizza from MENU
 LEFT JOIN recipe ON menu.pizza=recipe.pizza
-LEFT JOIN items ON recipe.ingredient=items.ingredient
+FULL JOIN items ON recipe.ingredient=items.ingredient
 WHERE items.type='fish'
-ORDER BY recipe.ingredient ASC;
+ORDER BY items.ingredient ASC;
 
 --7
 SELECT DISTINCT type from menu
