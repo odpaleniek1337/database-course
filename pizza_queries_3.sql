@@ -50,6 +50,16 @@ GROUP BY ingredient
 HAVING amount = (SELECT MAX(amount) FROM recipe)
 Ÿle jest ale nie wiem jak zrobiæ tbh*/
                                            
+--3
+select recipe.ingredient, recipe.pizza, recipe.amount
+from recipe
+inner join
+(select  ingredient, max(amount) amt
+from recipe
+group by ingredient) rcp
+on recipe.ingredient = rcp.ingredient and recipe.amount = rcp.amt
+order by recipe.ingredient desc
+                                           
 --5
  select pizza from recipe
  where ingredient IN(SELECT ingredient FROM items WHERE type='meat')
