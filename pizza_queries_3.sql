@@ -49,7 +49,16 @@ WHERE ingredient IN
 GROUP BY ingredient
 HAVING amount = (SELECT MAX(amount) FROM recipe)
 Ÿle jest ale nie wiem jak zrobiæ tbh*/
-
+                                           
+--5
+ select pizza from recipe
+ where ingredient IN(SELECT ingredient FROM items WHERE type='meat')
+ GROUP BY pizza
+                                           
+ --6
+ select ingredient from items
+ where ingredient not in (select ingredient from recipe)
+                                           
 --7
 SELECT ingredient FROM recipe rec
 WHERE (SELECT count(pizza) FROM recipe WHERE ingredient = rec.ingredient) > 1
