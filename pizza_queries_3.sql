@@ -51,7 +51,8 @@ WHERE ingredient IN
 SELECT ingredient, pizza, amount FROM recipe
 Where amount = (SELECT MAX(amount) FROM recipe)
 GROUP BY ingredient
---Ÿle jest ale nie wiem jak zrobiæ tbh
+HAVING amount = (SELECT MAX(amount) FROM recipe)
+Ÿle jest ale nie wiem jak zrobiæ tbh
 
 SELECT ingredient, pizza, amount FROM recipe
 SELECT MAX(amount) FROM recipe GROUP BY ingredient
