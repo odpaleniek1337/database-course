@@ -10,7 +10,11 @@ GROUP BY country;
 SELECT country, MAX(price) as 'Highest price' FROM menu
 WHERE country IS NOT NULL
 GROUP BY country;
-
+--3
+SELECT country, MIN(price) as 'min price' 
+FROM menu
+WHERE country IS NOT NULL
+GROUP BY country;
 --5
 SELECT country, CAST(AVG(price) as DECIMAL(3,2)) as 'Average price' FROM menu
 WHERE country LIKE '%i%'
@@ -38,7 +42,7 @@ WHERE ingredient IN
 /*SELECT ingredient, pizza, amount FROM recipe
 GROUP BY ingredient
 HAVING amount = (SELECT MAX(amount) FROM recipe)
-Ÿle jest ale nie wiem jak zrobiæ tbh*/
+Å¸le jest ale nie wiem jak zrobiÃ¦ tbh*/
 
 --7
 SELECT ingredient FROM recipe rec
