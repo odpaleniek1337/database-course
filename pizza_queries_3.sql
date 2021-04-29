@@ -15,6 +15,12 @@ SELECT country, MIN(price) as 'min price'
 FROM menu
 WHERE country IS NOT NULL
 GROUP BY country;
+ --4
+ SELECT country, AVG(price) as 'avg price'
+ FROM menu
+ WHERE country IS NOT NULL 
+ group by country
+ having count(pizza)>1 
 --5
 SELECT country, CAST(AVG(price) as DECIMAL(3,2)) as 'Average price' FROM menu
 WHERE country LIKE '%i%'
