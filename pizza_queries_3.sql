@@ -46,27 +46,13 @@ SELECT DISTINCT pizza FROM recipe
 WHERE ingredient IN
 (SELECT ingredient FROM items WHERE type='meat')
 
-
 --3
-SELECT ingredient, pizza, amount FROM recipe
-Where amount = (SELECT MAX(amount) FROM recipe)
-GROUP BY ingredient
-HAVING amount = (SELECT MAX(amount) FROM recipe)
-Ÿle jest ale nie wiem jak zrobiæ tbh
+SELECT recipe.ingredient, recipe.pizza, recipe.amount FROM recipe
+INNER JOIN (SELECT ingredient, max(amount) amt FROM recipe GROUP BY ingredient) rcp
+ON recipe.ingredient = rcp.ingredient and recipe.amount = rcp.amt
+ORDER BY recipe.ingredient DESC
 
-SELECT ingredient, pizza, amount FROM recipe
-SELECT MAX(amount) FROM recipe GROUP BY ingredient
-SELECT ingredient FROM recipe GROUP BY ingredient
-
---3
-select recipe.ingredient, recipe.pizza, recipe.amount
-from recipe
-inner join
-(select  ingredient, max(amount) amt
-from recipe
-group by ingredient) rcp
-on recipe.ingredient = rcp.ingredient and recipe.amount = rcp.amt
-order by recipe.ingredient desc
+--SELECT ingredient, pizza, amount FROM recipe r WHERE amount = (SELECT MAX(amount) FROM recipe WHERE ingredient=r.ingredient);
 
 --4
 SELECT ingredient FROM recipe rec
