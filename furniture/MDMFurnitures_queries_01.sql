@@ -1,3 +1,34 @@
+--1
+ALTER TABLE Product_T ADD QtyOnHand int, CHECK (QtyOnHand > 0 AND QtyOnHand < 100000)
+
+--2
+UPDATE Product_T SET QtyOnHand = -10 WHERE ProductID > 25; 
+UPDATE Product_T SET QtyOnHand = 100000 WHERE ProductID > 25; 
+UPDATE Product_T SET QtyOnHand = 10000 WHERE ProductID > 25;
+
+--3A
+INSERT INTO Order_T(OrderID, OrderDate, CustomerID, FulfillmentDate, SalespersonID, ShipAdrsID)
+VALUES (78, '09/May/21', 16, '', 3, NULL);
+
+--3B
+INSERT INTO Order_T(OrderID, OrderDate, CustomerID, FulfillmentDate, SalespersonID, ShipAdrsID)
+VALUES (79, '11/May/21', 17, '', 3, NULL);
+
+--4A
+SELECT COUNT(WorkCenterID)  AS 'No of Work Centers' FROM WorkCenter_T;
+
+--4B
+SELECT DISTINCT WorkCenterLocation FROM WorkCenter_T;
+
+--5
+SELECT * FROM Employee_T WHERE EmployeeName LIKE '% L%';
+
+--6
+SELECT * FROM Employee_T WHERE EmployeeDateHired LIKE '2005-%';
+
+--7
+SELECT * FROM Customer_T WHERE CustomerState IN ('CA', 'WA');
+
 --8
 SELECT * FROM RawMaterial_T
 WHERE Material='Cherry' AND Thickness='12' AND Width='12'
@@ -42,7 +73,7 @@ GROUP BY CustomerID
 SELECT DISTINCT SalespersonID, CustomerID
 FROM Order_T
 ORDER BY SalespersonID
---chyba nie o to do koñca chodzi³o ale nie wiem jak wyœwietliæ wszystkie CustomerID w jednym wierszu
+--chyba nie o to do koï¿½ca chodziï¿½o ale nie wiem jak wyï¿½wietliï¿½ wszystkie CustomerID w jednym wierszu
 
 --16
 SELECT ProductID, COUNT(OrderID) as NumOrders
