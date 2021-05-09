@@ -81,3 +81,60 @@ FROM OrderLine_T
 GROUP BY ProductID
 ORDER BY NumOrders DESC
 
+
+--17
+select paymentid, orderid, paymentamount, PaymentDate, substring(paymentcomment,1,10) as 'paymentcomment' 
+from Payment_T 
+where PaymentDate>= '2018-03-10';
+
+--18
+select customerid, count(order_t.OrderID) as totalorders 
+from Order_T 
+where CustomerID=Order_T.CustomerID and Order_T.OrderDate like '2018%' 
+group by CustomerID;
+
+--19
+select salespersonid, count(order_t.OrderID) as totalorders
+from Order_T 
+where SalespersonID=Order_T.SalespersonID 
+group by SalespersonID;
+
+--20
+
+select customerid, count(order_t.OrderID) as totalorders 
+from Order_T
+where CustomerID=Order_T.CustomerID 
+group by CustomerID
+having count(order_t.OrderID)>2;
+
+--21-
+select TerritoryID, count(Salesperson_T.SalespersonID) as salespeople from Salesperson_T, Territory_T
+where TerritoryID=SalesTerritoryID
+group by TerritoryID;
+
+--22
+select employeename, year(employeeDateHired)-year(employeebirthdate) as'age hired' 
+from Employee_T 
+where EmployeeState in ('TN','FL');
+
+--23
+select TerritoryID, count(Salesperson_T.SalespersonID) as NumSalesPersons 
+from Salesperson_T, Territory_T
+where TerritoryID=SalesTerritoryID 
+group by TerritoryID
+having count(Salesperson_T.SalespersonID)>1;
+
+--24
+select materialname, material, Width
+from RawMaterial_T 
+where Material not in ('cherry', 'oak') and width>10 ;
+
+--25
+select ProductID, ProductDescription, ProductFinish, ProductStandardPrice 
+from Product_T
+where (ProductFinish='oak' and ProductStandardPrice>400) or (ProductFinish='cherry' and ProductStandardPrice<300);
+
+
+
+
+
