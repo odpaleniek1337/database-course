@@ -27,7 +27,8 @@ SELECT * FROM Employee_T WHERE EmployeeName LIKE '% L%';
 SELECT * FROM Employee_T WHERE EmployeeDateHired LIKE '2005-%';
 
 --7
-SELECT * FROM Customer_T WHERE CustomerState IN ('CA', 'WA');
+SELECT * FROM Customer_T WHERE CustomerState IN ('CA', 'WA')
+ORDER BY CustomerPostalCode DESC
 
 --8
 SELECT * FROM RawMaterial_T
@@ -73,14 +74,12 @@ GROUP BY CustomerID
 SELECT DISTINCT SalespersonID, CustomerID
 FROM Order_T
 ORDER BY SalespersonID
---chyba nie o to do ko�ca chodzi�o ale nie wiem jak wy�wietli� wszystkie CustomerID w jednym wierszu
 
 --16
 SELECT ProductID, COUNT(OrderID) as NumOrders
 FROM OrderLine_T
 GROUP BY ProductID
 ORDER BY NumOrders DESC
-
 
 --17
 select paymentid, orderid, paymentamount, PaymentDate, substring(paymentcomment,1,10) as 'paymentcomment' 
@@ -100,7 +99,6 @@ where SalespersonID=Order_T.SalespersonID
 group by SalespersonID;
 
 --20
-
 select customerid, count(order_t.OrderID) as totalorders 
 from Order_T
 where CustomerID=Order_T.CustomerID 
@@ -110,7 +108,8 @@ having count(order_t.OrderID)>2;
 --21-
 select TerritoryID, count(Salesperson_T.SalespersonID) as salespeople from Salesperson_T, Territory_T
 where TerritoryID=SalesTerritoryID
-group by TerritoryID;
+group by TerritoryID
+having count(SalespersonID)>1;
 
 --22
 select employeename, year(employeeDateHired)-year(employeebirthdate) as'age hired' 
