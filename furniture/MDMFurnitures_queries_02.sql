@@ -24,7 +24,11 @@ group by EmployeeSupervisor
 having count(employeename)>2 ;
 
 --5
---nie mam pojecia skad wziac manager's birth, name i tak dalej :/ bo w tej tabeli employee_T nie ma nic o menagerze
+SELECT em.EmployeeName, em.EmployeeBirthDate, man.EmployeeName AS Manager, man.EmployeeBirthDate AS ManagerBirth FROM Employee_T em
+INNER JOIN (SELECT * FROM Employee_T) man
+ON em.EmployeeSupervisor = man.EmployeeID
+WHERE em.EmployeeBirthDate < man.EmployeeBirthDate
+GROUP BY em.EmployeeName, em.EmployeeBirthDate, man.EmployeeName, man.EmployeeBirthDate
 
 --6
 
@@ -42,11 +46,10 @@ where orderline_t.OrderID=1 group by Product_T.ProductID, Product_T.ProductStand
 
 
 --8
-select workcenterid, count( worksin_t.employeeid)
-from WorksIn_T
-where workcenterid=worksin_t.WorkCenterID
-group by workcenterid
---tylko nie ma tego trzecieko centerid nie wiem czemu
+SELECT wc.WorkCenterID, count(wi.employeeid) FROM WorksIn_T wi
+Right JOIN (SELECT * FROM WorkCenter_T) wc
+ON wc.WorkCenterID = wi.WorkCenterID
+GROUP BY wc.WorkCenterID
 
 --9
 select workcenterid from WorksIn_T
