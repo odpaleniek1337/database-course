@@ -59,6 +59,89 @@ select sum(Product_T.ProductStandardPrice) as totalcost
 from Product_T
 where productid in (select productid from orderline_t where orderid=1)
 
+--11
+SELECT VendorID, MaterialID, SupplyUnitPrice FROM Supplies_T sup
+WHERE SupplyUnitPrice >= 4 * (SELECT MaterialStandardPrice FROM RawMaterial_T WHERE sup.MaterialID = MaterialID)
+
+--12
+SELECT pr.ProductDescription, pr.ProductStandardPrice, SUM(raw.MaterialStandardPrice * us.QuantityRequired) AS TotCost FROM Product_T pr
+INNER JOIN (SELECT * FROM Uses_T) us
+ON pr.ProductID = us.ProductID
+INNER JOIN (SELECT * FROM RawMaterial_T) raw
+ON us.MaterialID = raw.MaterialID
+GROUP BY pr.ProductDescription, pr.ProductStandardPrice
+--13
+SELECT ord.OrderID, SUM(ordl.OrderedQuantity * pr.ProductStandardPrice ) AS TotalDue, pay.PaymentAmount FROM Order_T ord
+INNER JOIN (SELECT * FROM OrderLine_T) ordl
+ON ord.OrderID = ordl.OrderID
+INNER JOIN (SELECT * FROM Product_T) pr
+ON ordl.ProductID = pr.ProductID
+INNER JOIN (SELECT * FROM Payment_T) pay
+ON ord.OrderID = pay.OrderID
+GROUP BY ord.OrderID, pay.PaymentAmount
+
+--14
+SELECT cus.CustomerID, cus.CustomerName, ordl.OrderedQuantity, prd.ProductDescription FROM Customer_T cus
+INNER JOIN (SELECT OrderID, CustomerID FROM Order_T) ord
+ON cus.CustomerID = ord.CustomerID
+INNER JOIN (SELECT OrderID, ProductID, OrderedQuantity FROM OrderLine_T) ordl
+ON ord.OrderID = ordl.OrderID
+INNER JOIN (SELECT ProductID, ProductDescription FROM Product_T) prd
+ON ordl.ProductID = prd.ProductID
+WHERE ProductDescription LIKE '%Computer Desk%' AND ordl.OrderedQuantity > 0;
+
+--15
+SELECT DISTINCT CustomerName FROM Customer_T cst
+INNER JOIN (SELECT OrderID, CustomerID FROM Order_T  WHERE OrderDate BETWEEN '2018-03-01' AND '2018-03-31') ord
+ON cst.CustomerID = ord.CustomerID
+INNER JOIN (SELECT OrderID, ProductID FROM OrderLine_T) ordl
+ON ord.OrderID = ordl.OrderID
+INNER JOIN (SELECT ProductID, ProductLineID FROM Product_T) pr
+ON ordl.ProductID = pr.ProductID
+WHERE pr.ProductLineID = (SELECT ProductLineID FROM ProductLine_T WHERE ProductLineName = 'Basic')
+
+--16
+SELECT cst.CustomerName, sum(ordl.OrderedQuantity) AS 'No. of products' FROM Customer_T cst
+INNER JOIN (SELECT OrderID, CustomerID FROM Order_T  WHERE OrderDate BETWEEN '2018-03-01' AND '2018-03-31') ord
+ON cst.CustomerID = ord.CustomerID
+INNER JOIN (SELECT OrderID, ProductID, OrderedQuantity FROM OrderLine_T) ordl
+ON ord.OrderID = ordl.OrderID
+INNER JOIN (SELECT ProductID, ProductLineID FROM Product_T) pr
+ON ordl.ProductID = pr.ProductID
+WHERE pr.ProductLineID = (SELECT ProductLineID FROM ProductLine_T WHERE ProductLineName = 'Basic') 
+GROUP BY cst.CustomerName
+
+--17
+SELECT f.EmployeeName FROM Employee_T f
+INNER JOIN (
+SELECT DISTINCT emp.EmployeeSupervisor FROM Employee_T emp
+INNER JOIN (SELECT EmployeeID, SkillID FROM EmployeeSkills_T WHERE SkillID = 'BS12') sk
+ON emp.EmployeeID = sk.EmployeeID) z
+ON f.employeeID = z.EmployeeSupervisor
+ORDER BY f.EmployeeName DESC
+
+--18
+SELECT sls.SalespersonName, pr.ProductFinish, SUM(OrderedQuantity) AS TotSales FROM Salesperson_T sls
+INNER JOIN (SELECT * FROM Order_T) ord
+ON sls.SalespersonID = ord.SalespersonID
+INNER JOIN (SELECT * FROM OrderLine_T) ordl
+ON ord.OrderID = ordl.OrderID
+INNER JOIN (SELECT * FROM Product_T) pr
+ON ordl.ProductID = pr.ProductID
+GROUP BY sls.SalespersonName, pr.ProductFinish
+
+--19
+SELECT wc.WorkCenterLocation, COUNT(pi.ProductID) as TotalProducts FROM WorkCenter_T wc
+LEFT OUTER JOIN (SELECT * FROM ProducedIn_T) pi
+ON wc.WorkCenterID = pi.WorkCenterID
+GROUP BY wc.WorkCenterLocation
+
+--20
+SELECT CustomerName, COUNT(v.VendorID) as NumVendors FROM Customer_T cs
+LEFT JOIN(SELECT * FROM Vendor_T) v
+ON cs.CustomerState = v.VendorState
+GROUP BY CustomerName
+
 --21
 select OrderID from Order_T
 except select OrderID from Payment_T
