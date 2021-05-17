@@ -31,7 +31,6 @@ WHERE em.EmployeeBirthDate < man.EmployeeBirthDate
 GROUP BY em.EmployeeName, em.EmployeeBirthDate, man.EmployeeName, man.EmployeeBirthDate
 
 --6
-
 select order_t.orderid, order_t.CustomerID, order_t.OrderDate, Product_T.ProductDescription
 from ((Order_T 
 inner join OrderLine_T on order_t.OrderID= OrderLine_T.OrderID)
@@ -43,7 +42,6 @@ select Product_T.ProductID, Product_T.ProductStandardPrice, sum(Product_T.Produc
 from product_T
 inner join OrderLine_T on Product_T.ProductID=OrderLine_T.ProductID
 where orderline_t.OrderID=1 group by Product_T.ProductID, Product_T.ProductStandardPrice
-
 
 --8
 SELECT wc.WorkCenterID, count(wi.employeeid) FROM WorksIn_T wi
@@ -57,7 +55,6 @@ inner join EmployeeSkills_T on worksin_t.EmployeeID= EmployeeSkills_T.EmployeeID
 where EmployeeSkills_T.SkillID='QC1'
 
 --10
-
 select sum(Product_T.ProductStandardPrice) as totalcost
 from Product_T
 where productid in (select productid from orderline_t where orderid=1)
@@ -152,9 +149,9 @@ except select OrderID from Payment_T
 --22
 select CustomerState
 from Customer_T
-where CustomerState not in (
+except
 select SalespersonState
-from Salesperson_T)
+from Salesperson_T
 
 --23
 select p.ProductDescription, sum(o.OrderedQuantity) as NumOrders
@@ -201,7 +198,6 @@ GROUP BY O2.CustomerID)
 ORDER BY P.ProductID;
 
 --29
-select ProductID from OrderLine_T
-where OrderedQuantity = (
-select top 1 sum(OrderedQuantity) from OrderLine_T
-group by ProductID)
+select top 1 ProductID from OrderLine_T
+group by ProductID
+order by sum(OrderedQuantity) desc
