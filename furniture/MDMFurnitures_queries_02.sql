@@ -94,7 +94,7 @@ WHERE ProductDescription LIKE '%Computer Desk%' AND ordl.OrderedQuantity > 0;
 SELECT DISTINCT CustomerName FROM Customer_T cst
 INNER JOIN (SELECT OrderID, CustomerID FROM Order_T  WHERE OrderDate BETWEEN '2018-03-01' AND '2018-03-31') ord
 ON cst.CustomerID = ord.CustomerID
-INNER JOIN (SELECT OrderID, ProductID FROM OrderLine_T) ordl
+INNER JOIN (SELECT OrderID, ProductID FROM OrderLine_T WHERE OrderedQuantity > 0) ordl
 ON ord.OrderID = ordl.OrderID
 INNER JOIN (SELECT ProductID, ProductLineID FROM Product_T) pr
 ON ordl.ProductID = pr.ProductID
